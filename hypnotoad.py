@@ -13,7 +13,6 @@ def usage():
     """)
 
 def main():
-
     if ((len(sys.argv))< 2):
         usage()
         exit(0)
@@ -28,16 +27,19 @@ def main():
 
 def ssh_command(ip, user, passwd, command):
     client = paramiko.SSHClient()
-    #client.load_host_keys('/home/yeet/.ssh/known_hosts')
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    
     try:
         client.connect(ip, username=user, password=passwd)
+      
     except (BadHostKeyException, AuthenticationException,
         SSHException, socket.error) as e:
         print(e)
         return
+    
     ssh_session = client.get_transport().open_session()
+    
     if ssh_session.active:
         ssh_session.exec_command(command)
         return ((ssh_session.recv(1024)).decode("utf-8"))
@@ -55,7 +57,9 @@ def linuxlab(username, password, command):
             if r < 10:
                 hostname += " "
             print(hostname + ":   " + res)
+            
         except Exception as e:
             print("[***] ERROR: Can't reach "+ hostname)
 
-main()
+if __name__ == '__main--':
+    main()
