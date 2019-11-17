@@ -61,5 +61,5 @@ def linuxlab(username, password, command):
         except Exception as e:
             print("[***] ERROR: Can't reach "+ hostname)
 
-if __name__ == '__main--':
+if __name__ == '__main__':
     main()
